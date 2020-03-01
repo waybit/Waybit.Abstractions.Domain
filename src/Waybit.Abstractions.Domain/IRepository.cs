@@ -28,23 +28,17 @@ namespace Waybit.Abstractions.Domain
 		Task<TAggregateRoot> GetByIdAsync(TKey id, CancellationToken cancellationToken);
 
 		/// <summary>
-		/// Add aggregate root.
+		/// Add aggregate root and returns created identity.
 		/// </summary>
 		/// <param name="entity">Aggregate root.</param>
 		/// <param name="cancellationToken">Cancellation token.</param>
-		Task<TAggregateRoot> AddAsync(TAggregateRoot entity, CancellationToken cancellationToken);
+		Task<TKey> AddAsync(TAggregateRoot entity, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Change aggregate root.
 		/// </summary>
 		/// <param name="entity">Aggregate root.</param>
 		/// <param name="cancellationToken">Cancellation token.</param>
-		Task<TAggregateRoot> UpdateAsync(TAggregateRoot entity, CancellationToken cancellationToken);
-
-		/// <summary>
-		/// Save all aggregate root changes.
-		/// </summary>
-		/// <param name="cancellationToken">Cancellation token.</param>
-		Task CommitAsync(CancellationToken cancellationToken);
+		Task UpdateAsync(TAggregateRoot entity, CancellationToken cancellationToken);
 	}
 }
