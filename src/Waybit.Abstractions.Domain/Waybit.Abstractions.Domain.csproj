@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <PackageId>Waybit.Abstractions.Domain</PackageId>
+        <Authors>sankovlex</Authors>
+        <PackageLicenseUrl>https://github.com/sankovlex/waybit-abstractions-domain/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageProjectUrl>https://github.com/sankovlex/waybit-abstractions-domain.git</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/sankovlex/waybit-abstractions-domain.git</RepositoryUrl>
+        <PackageTags>ddd, domain</PackageTags>
+        <Copyright>Waybit © 2020 | https://waybit.com</Copyright>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\Waybit.Abstractions.Domain.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\Waybit.Abstractions.Domain.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="8.0.1" />
+    </ItemGroup>
+
+</Project>
