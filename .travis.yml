@@ -1,0 +1,32 @@
+language: csharp
+mono: none
+dotnet: 3.1
+os: linux
+
+env:
+  global: 
+    - SLN_PATH=src/Waybit.Abstractions.Domain.sln
+      
+git:
+  depth: false
+
+script:
+  - dotnet restore $SLN_PATH
+  - dotnet test $SLN_PATH
+
+before_deploy:
+  - git fetch --tags
+
+deploy:
+  - provider: script
+    skip_cleanup: false
+    script: bash ./deploy/deploy_release.sh "$NUGET_API_KEY" "$TRAVIS_TAG"
+    on:
+      branch: master
+      tags: true
+  - provider: script
+    skip_cleanup: true
+    script: bash ./deploy/deploy_unstable.sh "$NUGET_API_KEY" "$TRAVIS_BUILD_NUMBER"
+    on:
+      tags: false
+      all_branches: true
