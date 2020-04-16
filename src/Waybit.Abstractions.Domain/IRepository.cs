@@ -37,8 +37,8 @@ namespace Waybit.Abstractions.Domain
 		/// <summary>
 		/// Remove aggregate root.
 		/// </summary>
-		/// <param name="identity">Entity identity.</param>
+		/// <param name="entity">Aggregate root.</param>
 		/// <param name="cancellationToken">Cancellation token.</param>
-		Task RemoveAsync(TKey identity, CancellationToken cancellationToken);
+		Task RemoveAsync(TAggregateRoot entity, CancellationToken cancellationToken);
 	}
 }
