@@ -1,6 +1,8 @@
-﻿namespace Waybit.Abstractions.Domain.UnitTests.Implementations
+﻿using System;
+
+namespace Waybit.Abstractions.Domain.UnitTests.Implementations
 {
-	public class TestValueObject : ValueObject
+	public class TestValueObject : ValueObject<TestValueObject>
 	{
 		/// <inheritdoc />
 		public TestValueObject(string city, string street)
@@ -12,27 +14,23 @@
 		public string City { get; private set; }
 
 		public string Street { get; private set; }
-		
-		/// <inheritdoc />
-		protected override bool Equals(ValueObject other)
-		{
-			if (!(other is TestValueObject testValueObject))
-			{
-				return false;
-			}
 
-			return this.City == testValueObject.City &&
-				this.Street == testValueObject.Street;
+		/// <inheritdoc />
+		public override bool Equals(TestValueObject other)
+		{
+			return City == other.City && Street == other.Street;
 		}
 
 		/// <inheritdoc />
-		protected override int GetValueObjectHashCode()
+		public override int GetHashCode()
 		{
-			unchecked
-			{
-				int hashCode = City?.GetHashCode() ?? 0;
-				return (hashCode * 396) ^ Street?.GetHashCode() ?? 0;
-			}
+			return HashCode.Combine(City, Street);
+		}
+
+		/// <inheritdoc />
+		public override string ToString()
+		{
+			return $"{City}, {Street}";
 		}
 	}
 }

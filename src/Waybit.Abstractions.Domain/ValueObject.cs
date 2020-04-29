@@ -1,20 +1,14 @@
-﻿﻿namespace Waybit.Abstractions.Domain
+﻿﻿using System;
+
+namespace Waybit.Abstractions.Domain
 {
 	/// <summary>
 	/// Value object
 	/// </summary>
-	public abstract class ValueObject
+	public abstract class ValueObject<TValueObject> : IEquatable<TValueObject>, IValueObject
 	{
-		/// <summary>
-		/// Is equals value objects.
-		/// </summary>
-		/// <param name="other">Value object candidate.</param>
-		protected abstract bool Equals(ValueObject other);
-
-		/// <summary>
-		/// Gets value object hash code for equality.
-		/// </summary>
-		protected abstract int GetValueObjectHashCode();
+		/// <inheritdoc />
+		public abstract bool Equals(TValueObject other);
 
 		/// <inheritdoc />
 		public override bool Equals(object obj)
@@ -29,46 +23,40 @@
 				return true;
 			}
 
-			if (obj.GetType() != this.GetType())
+			if (!(obj is TValueObject valueObject))
 			{
 				return false;
 			}
-
-			return this.Equals((ValueObject)obj);
+			
+			return this.Equals(valueObject);
 		}
 
 		/// <inheritdoc />
-		public override int GetHashCode()
-		{
-			return this.GetValueObjectHashCode();
-		}
+		public abstract override int GetHashCode();
 
 		/// <summary>
-		/// Equals override.
+		/// Comparable operator ==
 		/// </summary>
-		/// <param name="left">Left value object.</param>
-		/// <param name="right">Right value object.</param>
-		public static bool operator ==(ValueObject left, ValueObject right)
+		/// <param name="left"></param>
+		/// <param name="right"></param>
+		/// <returns></returns>
+		public static bool operator ==(ValueObject<TValueObject> left, ValueObject<TValueObject> right)
 		{
 			return Equals(left, right);
 		}
 
 		/// <summary>
-		/// Not equals override.
+		/// Comparable operator !=
 		/// </summary>
-		/// <param name="left">Left value object.</param>
-		/// <param name="right">Right value object.</param>
-		public static bool operator !=(ValueObject left, ValueObject right)
+		/// <param name="left"></param>
+		/// <param name="right"></param>
+		/// <returns></returns>
+		public static bool operator !=(ValueObject<TValueObject> left, ValueObject<TValueObject> right)
 		{
 			return !Equals(left, right);
 		}
 
-		/// <summary>
-		/// Copy values for a new value object.
-		/// </summary>
-		public virtual ValueObject Copy()
-		{
-			return this.MemberwiseClone() as ValueObject;
-		}
+		/// <inheritdoc />
+		public abstract override string ToString();
 	}
 }
